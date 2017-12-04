@@ -5,6 +5,7 @@
 # Learn that prefer vectorization for speed-ups over normal python for loops.
 ############################################################
 
+ # Note that in this tutorial i refer to the names of the indexes as index-labels.
 
 import pandas as pd
 import numpy as np
