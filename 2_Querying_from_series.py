@@ -5,7 +5,7 @@
 # Learn that prefer vectorization for speed-ups over normal python for loops.
 ############################################################
 
- # Note that in this tutorial i refer to the names of the indexes as index-labels.
+ # Note that in this tutorial,we refer to the names of the row-indexes as index-labels.
 
 import pandas as pd
 import numpy as np
@@ -15,7 +15,7 @@ import time
 ############################################################
 # iloc vs loc
 ############################################################
-#   iloc : Query via index value (numeric)
+#   iloc : Query via index number value (numerically)
 #   loc : Query via index label (name)
 # These are not only used to get the data but also set the data
 # Also if the index / label passed to iloc/loc is not present, it is added to the Series.
@@ -30,30 +30,32 @@ sports_dict = {'Archery' : 'Bhutan',
                'Golf' : 'Scotland',
                'Sumo' : 'Japan'}
 
+# Create a simple <Sport> : <Country> series
 sports_series = pd.Series(sports_dict)
+print (sports_series)
 
 ## Passing a single integer to .iloc[] will give the value at that index only.
-# But passing a list of indexes / slice works in the same way as for strings in python / numpy array
+# But passing a list of indexes [id1, id2, .. idn] / slice works  [start : stop : step] in the same way as for strings in python / numpy array
 # Start index is included and end index is not
 
-print ('------------ iloc : Single integer query --------')
+print ('------------ iloc : Single integer query -> iloc[2]--------')
 print (sports_series.iloc[2] )
 ## OUTPUT >
 # Scotland.
 
-print ('------- iloc : Slice query --------')
+print ('------- iloc : Slice query -> iloc[0:2] --------')
 print((sports_series.iloc[0:2]))                # Snippet of series with index = 0,1
 ## OUTPUT >
 # Archery    Bhutan
 # Cricket     India
 
-print ('------ iloc : Slice query again----------')
+print ('------ iloc : Slice query again ->  iloc [0:3:2] ----------')
 print((sports_series.iloc[0:3:2]))              # Snippet of series with index = 0,2
 ## OUTPUT >
 # Archery      Bhutan
 # Golf       Scotland
 
-print ('-------- iloc : index List query---------')
+print ('-------- iloc : index List query -> iloc [1,2,3] ---------')
 print((sports_series.iloc[[1,2,3]]))            # Snippet of series with index = 0,1,2
 ## OUTPUT >
 # Cricket       India
@@ -69,7 +71,7 @@ print((sports_series.iloc[[1,2,3]]))            # Snippet of series with index =
 
 
 
-print ('-------- loc : index label query ---------')
+print ('-------- loc : index label query -> .loc["Cricket"] ---------')
 print (sports_series.loc['Cricket'] )
 ## OUTPUT =
 # India
@@ -78,11 +80,11 @@ print (sports_series.loc['Cricket'] )
 ############################################################
 # USING LAMBDA IN .LOC[]
 ############################################################
-# We can pass a function which takes the series and returns True / False
+# We can pass a function which takes the series element (value not index) and returns True / False
 # pandas internally checks if the function is True / False for all its values (not indexes)
-# In out case it checks 1-by-1 if 'Bhutan' , 'India', 'Scotland', 'Japan' pass the check or not.
+# In our case it checks 1-by-1 if 'Bhutan' , 'India', 'Scotland', 'Japan' pass the check or not.
 # since only Scotland will pass the below string check, it index label and this value is returned.
-print ('--------- loc : Function query -----------')
+print ('--------- loc : Lambda Function query -----------')
 print (sports_series.loc[lambda s : s == 'Scotland'])
 ## OUTPUT >
 # Golf Scotland
@@ -90,6 +92,7 @@ print (sports_series.loc[lambda s : s == 'Scotland'])
 
 
 
+print ('-------- Iterating over a series  ---------')
 ############################################################
 # Iterating over all items in a series
 ############################################################
@@ -109,6 +112,7 @@ for index, item in s.iteritems():
 s = pd.Series(np.random.randint(1,10000,100000,dtype='int64'))
 
 
+print ( ' ------------- Sum all nums --------------- ')
 ############################################################
 # 1.) Sum all nums in a series
 ############################################################
@@ -136,6 +140,7 @@ print (' Sum using vectorization in numpy took : ', way_2_time_taken)
 # 2.) Increment all items by 2.
 ############################################################
 
+print ( ' ------------- Increment by 2 --------------- ')
 # Way 1.) Typical for loop
 print (s.head())
 way_1_start_time = time.time()
@@ -211,18 +216,18 @@ print (all_sports.loc['Cricket'] )
 ############################################################
 # Conclusion
 ############################################################
-#  Index and values for a series need not be homogeneous i.e mix of different data types is also possible.
+#  1.) Index and values for a series need not be homogeneous i.e mix of different data types is also possible.
 
 ############################################################
 # 2.) iloc vs loc
 ############################################################
 # iloc gets the data using numbered indexing
-# loc gets the data by matching label  of the index.
+# loc gets the data by matching the given label name of the index.
 
 # iloc / loc are used to get / set the data
 #   If the index / label is not present, it is added.
 
-#   only loc can accept a lambda function (  not iloc ) (To my knowledge)
+#   only loc can accept a lambda function ( not iloc ) (To my knowledge)
 #   loc['index_label'] : returns the series snippet for which index is = the given 'index_label'
 #   loc[lambda s : s == 'string'] : checks for all values (not indexes) and returns the snippet of series
 #       for which value = 'string'
@@ -251,6 +256,5 @@ print (all_sports.loc['Cricket'] )
 
 ############################################################
 # 5.) Append to series to get a new one
-############################################################
 # Use series1.append(series2) to append 2 series and get a new one. Does not modify series1 or series2.
 ############################################################

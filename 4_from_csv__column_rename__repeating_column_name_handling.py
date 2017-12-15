@@ -110,12 +110,13 @@ print (medals_df.columns)                   # Gives a list of all columns
 
     # More on <mapper>
         # is a dict like object of the form { <old_column_name_substr> : <new_column_name_str> , <old> : <new> .. and so on }
-        # and the old_column name_str : is treated like a pattern. Wherever in all column names this string is present as substring, that column name will be replaced with
+        # and the old_column name_str : is the existing column name and it will be replaced with
         # new_column_name_str : This is the new column name. What ever is in this variable will be set as is the new name for the column
 
 
 # Lets rename 01 ! -> Gold  , 02 ! -> Silver , 03 ! -> Bronze
 for col in medals_df.columns :
+    print ( ' Got  col name : ', col)
     if col[0:2] == '01' :
         new_col_name = 'Gold'+col[4:]
         medals_df.rename(columns={col : new_col_name}, inplace=True)
@@ -144,7 +145,7 @@ print(medals_df.head())
 # df.columns :
         # gives a list of all the column in the df
 # df.rename (columns = {} , index = {} )
-        # can be used to rename the column headers or index labels
+        # can be used to rename the column labels  or index labels (row-labels)
 #####################################################################################
 
 

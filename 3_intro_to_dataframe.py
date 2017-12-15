@@ -12,7 +12,7 @@ import numpy as np
 
 # indices of df need not be unique, duplicate indexes are allowed.
 # Columns in df always have a label
-
+# Like index referred to row-labels in pandas-series, in panda-dataframe generally index is used for row-labels only. But since DF also has column labels use of 'column-index' is also common.
 # <index>  <series_1> <series_2>
 
 # Ex :
@@ -23,15 +23,15 @@ import numpy as np
 # 3       Moose           P4
 
 # Axis :
-    # Axis 0 : Rows V
-    # Axis 1 : Columns >
+    # Axis 0 : V
+    # Axis 1 : >
 
 # .columns ()
     # Animals , Owners
 
-# index : 0,1,2,3
+# index : 0,1,2,3 (The row labels)
 
-# iloc and loc
+# iloc and loc < to query
     # df.iloc(2) -> Returns the row 3 data.
     # df['Owners'] -> Returns the Owners column
     # df.iloc(3)["Animals"] -> Moose
@@ -45,12 +45,12 @@ import numpy as np
 ###############################################################
 # Creating data frame :
 ###############################################################
-    # 1) Using group of series, where each series represents a column
+    # 1) Using group of series, where each series represents a row in DF.
         # Each index of a series will convert to a column of the data frame.
         # So values in each series will be each row of df.
         # Imagine series as flat (horizontal) with each new series being added as a new row in df.
         # If there is index mismatch in series, NaN is added to the series (rows in df) having no data for that index.
-    # 2) Using group of dictionary, where each value column of a dict represents a column in df
+    # 2) Using group of dictionary, where value part of a dict represents a column in df
 ###############################################################
 
 
@@ -59,7 +59,6 @@ import numpy as np
 ###############################################################
 # Ex : Creating df from 3 series
 ###############################################################
-# We will have 3 columns : Name, Item, Cost
 
 s1 = pd.Series ({'Name' : 'Ankit' ,
                  'Item' : 'Milk',
@@ -78,6 +77,10 @@ s3 = pd.Series ({'Name' : 'Madhur' ,
                  'Item' : 'Eggs',
                  'Cost' : 50})
 
+# For each series we have index = ['Name' 'Item' 'Cost']
+# These will represent columns in dataframe and values in each series will form a new row.
+
+
 print ('--------- Creating a df from pandas.Series ---------- ')
 df_from_series = pd.DataFrame([s1, s2, s3], index = ['Store1', 'Store2', 'Store1'])
 print(df_from_series)
@@ -95,8 +98,8 @@ print(df_from_series)
 ###############################################################
 ## Auto indexing
 ###############################################################
-# IF no index was given then auto indexing (from 0) would have invoked.
-#df_from_series = pd.DataFrame([s1, s2, s3] )
+# IF no index was given then auto indexing (starting from 0) would have invoked.
+# df_from_series = pd.DataFrame([s1, s2, s3] )
 ###############################################################
 
 
@@ -138,20 +141,25 @@ print(df_from_series)
 ###############################################################
 # Using iloc and loc
 ###############################################################
-# iloc and loc work similar as in pandas-Series.
+# iloc and loc work similar as in pandas-Series and are used for row-based querying.
+# and [] operator is used for col based querying.
 
 # df.loc['index_label_string']
-    # returns the df snippet where index of df  = 'index_string'
+    # returns the df snippet where index (row-label) of df  = 'index_string'
     # return type : DataFrame
     # Detailed explanation below
 
 # df.iloc[integer / slice / list_of_integer]
     # returns the corresponding rows as df snippet
-    # return DataFrame
+    # return type :  DataFrame
 
 # df['column_name']
     # returns the df index and column as a whole.
     # Return type : pandas-Series
+
+# df[ ['col_name_1' , 'col_name_2' , 'col_name_3' ]]
+    # give a list of column names.
+    # outputs the selected columns as a dataframe.
 
 
 print ('-- df.loc["Store1"] : -- ')
@@ -177,14 +185,14 @@ print (df_from_series.loc[:, 'Item'])
 ###############################################################
 # df.loc in more details
 ###############################################################
-# it works on labels and here labels refer to the index-labels (index-names) and column labels (column-names)
+# it works on labels and here labels refer to the row-labels (index-names / row-names) and column-labels (column-names)
 # So it can take 2 ranges separated by , ( df.loc [<range1> , <range2>] )
     # here range can be a single value or a list of values or a slice of values of the form : [start : stop : step]
     # Note that <range1> is mandatory and <range2> is optional and it is recommended to write both for clarity.
         # Can mention just ':' for row / column to be taken completely
 
 
-    # <range1> : Should mention the range of index-labels
+    # <range1> : Should mention the range of index-labels (row-labels)
         # Exs of index-labels :
             # 1.) df.loc ['Store1']                              # Single index-label
                     # returns df snippet with Store1 as index label
@@ -203,13 +211,20 @@ print (df_from_series.loc[:, 'Item'])
                     # returns a pandas df
 
 
-# Since loc / iloc / [] return a pandas data frame / series, the operations can be chained.
+# Since loc / iloc / [] return a pandas data frame or a series, the operations can be chained.
 # but it comes at a cost
 # It returns a copy of df, not a view of df and that too with no guarantee.
 # So avoid chained indexing.
 ###############################################################
 
 
+
+##############################################################
+##  FILTERING
+##############################################################
+## df [df['col_name_1'] > 100 ] -> Will print a data frame with the following condition.
+# df ['col name' ] > 100 -> This actually generated a boolean mask which when applied to a df will give the result.
+##############################################################
 
 
 

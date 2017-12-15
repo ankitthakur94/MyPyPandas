@@ -1,0 +1,13 @@
+day,city,temp,windspeed,event
+1,delhi,34,3,Rain
+2,delhi,56,56,Sunny
+3,delhi,32,23,Snow
+4,delhi,6,45,Sunny
+5,mumbai,23,67,Fog
+6,mumbai,56,98,Snow
+7,mumbai,3,54,Rain
+8,mumbai,67,23,Fog
+9,chennai,34,45,Fog
+10,chennai,67,56,Rain
+11,chennai,32,89,Snow
+12,chennai,56,45,Sunny
