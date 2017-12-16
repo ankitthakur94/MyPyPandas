@@ -112,6 +112,38 @@ print (states_df.groupby('city').agg(['mean', 'max']))
 
 
 
+#######################################################
 ## Conclusion
+#######################################################
 
 # groupby ()
+    # is used to analyze the data according to a few values of a partiocular column.
+
+    # returns a groupy object which can be iterated upon like a dictionary.
+        # <group_name> : <group_df>
+            # group_df will be a snippet of the original data frame.
+
+        # for group_name, group_df in df.groupby('col_name') :
+            ## << processing >>
+
+    # Combining functions can be applied after using groupby ()
+        # count() , max () , min () , mean () .. etc.
+
+        # Applying combining functions to a specific column.
+            # df.groupby('col_name')['another_col_name'].sum()
+
+        # Applying combining functions to all columns.
+            # df.groupby('col_name').sum()
+
+        # Applying multiple combining functions. (using agg)
+            #df.groupby('col_name').another_col_name.agg[ 'sum' , 'max' , ' min ' ]
+
+        # Multiple combining functions can be applied to all the cols also, by skipping the another_col_name.
+#######################################################
+
+
+
+
+
+
+
