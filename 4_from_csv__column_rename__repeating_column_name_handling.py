@@ -109,7 +109,7 @@ print (medals_df.columns)                   # Gives a list of all columns
             # to rename the row labels i.e indexes
 
     # More on <mapper>
-        # is a dict like object of the form { <old_column_name_substr> : <new_column_name_str> , <old> : <new> .. and so on }
+        # is a dict like object of the form { <old_column_name> : <new_column_name> , <old> : <new> .. and so on }
         # and the old_column name_str : is the existing column name and it will be replaced with
         # new_column_name_str : This is the new column name. What ever is in this variable will be set as is the new name for the column
 
@@ -133,7 +133,10 @@ print(medals_df.head())
 
 
 
-
+#####################################################################################
+## Taking mean / max /  min  etc for every column in dataframe
+# df.mean() -> Will give the mean of every column in the data frame.
+#####################################################################################
 
 
 #####################################################################################
@@ -144,8 +147,11 @@ print(medals_df.head())
         # gives a copy of the df
 # df.columns :
         # gives a list of all the column in the df
-# df.rename (columns = {} , index = {} )
+# df.rename (columns = {} <or> index = {} )
         # can be used to rename the column labels  or index labels (row-labels)
+# df.mean ()
+        # Gives mean for every column in data frame.
+        # other operations such as max / min etc can also be applied.
 #####################################################################################
 
 

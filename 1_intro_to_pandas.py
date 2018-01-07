@@ -64,7 +64,7 @@ print (nums_series)
 #################################################################################
 
 # In this case Pandas discards the auto creation of row-labels (from 0)
-# and instead use the keys of the dictionary as row-labels and values as values.
+# and instead use the keys of the dictionary as row-labels and values as values of series.
 
 print ('------------ Creating series from dictionary ------------------')
 sports_dict = {'Archery' : 'Bhutan',
@@ -164,6 +164,57 @@ print (nums_series)
 #################################################################################
 
 
+print ( ' -------------   Renaming the series ---------------- ')
+#################################################################################
+# Renaming the indexes names / name of the entire series
+#################################################################################
+
+s = pd.Series([1,2,3])
+print ( ' -- Original series -- ' )
+print (s)
+
+# Renaming the series (i.e the column header) changes the series.name attr.
+s.rename('numbers', inplace=True)
+print ( ' -- series renames (scalar)-- ' )
+print (s)
+
+# Renaming the indexes (i.e row labels)
+
+### Method -1 passing a lambda
+s.rename(lambda x : x*3, inplace=True)
+print ( ' -- series indexes (row-labels) renamed using lamda -- ' )
+print (s)
+
+### Method -2 passing a dict object
+s.rename({3 : 10 , 6 : 20}, inplace=True)
+print ( ' -- series indexes (row-labels) renamed using dict -- ' )
+print (s)
+
+#################################################################################
+
+
+
+
+print ( ' ----------  Groupby in series -------------- ')
+#################################################################################
+## Grouping by the values in series (groupby)
+#################################################################################
+# group by can be used in split -> apply -> combine methodology on a series
+# see a later tutorial on group by for more details.
+
+# to group by the values in series
+# say we have cancer data,  0 : no_cancer , 1 : cancer
+
+s = pd.Series([1,0,1,1,0,0,1])
+
+# we need to group by 0 and 1 (i.e series values) to see the count of 0s and 1s
+grouped = s.groupby(s).count()          # pass the series itself to group by values of the series
+print (grouped)
+
+# Other combining fxns like mean / std_dev / max  / min can also be applied.
+#################################################################################
+
+
 
 
 #################################################################################
@@ -192,6 +243,14 @@ print (nums_series)
 #   Pandas is internally numpy
 
 #   use <series_variable>.index to get all the  index values. ( Here index  values refer to row-labels )
+
+# renaming series
+    # renaming the series scalar value
+        # s.rename('scalar_value')
+
+    # renaming indexes (row labels)
+        # either using a lambda
+        # or a dict object
 #################################################################################
 
 
