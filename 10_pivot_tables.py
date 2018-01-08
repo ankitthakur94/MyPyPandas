@@ -14,11 +14,8 @@ states_df = pd.read_csv('cities_and_temp3.csv', encoding="ISO-8859-1" )
 print (states_df)
 print (states_df.pivot(index='Date', columns='City'))
 
-
-
-
-
-
+## Can pass aggragate functions in the pivot as well.
+    # Explore more.
 
 
 

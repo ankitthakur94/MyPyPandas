@@ -55,7 +55,7 @@ print (mumbai_df)
 
 
 ###################################################
-# SPLIT -> APPLY -> COMBINE
+# SPLIT -> APPLY -> COMBINE method
 ###################################################
 # Split : by group_by ('row_name')
 # apply : apply a function like min / max / mean / count etc. which provides the max (say) for a particular column (or for every column as above) for every group.

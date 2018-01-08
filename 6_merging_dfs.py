@@ -67,6 +67,7 @@ print(df_from_series)
         # So if row-labels are default (0 , 1 ..  so on ) we can mention the rows for which we want to add data  and rest of the rows will have None.
         # So a pandas series (having index values = subset of row index of df) can be added as a new col to a df. Values for the given indexes in series will be added.
         # Rest will be None.
+        # In this approach we will care only for the rows we want to add data for.
 
 df_from_series.reset_index(inplace=True)
 new_series = pd.Series({0 : '1-Jan', 2 : 'November'})                       # Modify the date column. Will be added for rows 0 and 1.
@@ -99,9 +100,10 @@ student_df = pd.DataFrame([{'Name': 'James', 'School': 'Business'},
                            {'Name': 'Mike', 'School': 'Law'},
                            {'Name': 'Sally', 'School': 'Engineering'}])
 student_df = student_df.set_index('Name')
-print(staff_df.head())
-print()
-print(student_df.head())
+print ( ' -- Original staff df : --- ')
+print(staff_df)
+print( ' -- Original student df --- ')
+print(student_df)
 
 # We want to merge the staff and students dataframes.
 # For both of the above df's the index is same 'Name' . So we will merge on this index.
@@ -109,10 +111,10 @@ print(student_df.head())
 # The new df will have 'Name' as its index.
 
 ##########################################################
-### 1.) OUTER JOIN
+### 1.) OUTER JOIN (Union)
 ##########################################################
 union_df = pd.merge(staff_df, student_df, how = 'outer', left_index=True, right_index=True)
-# Syntax :  Merge the left data frame (staff_df) and the right data frame (student_df) , It will be a union , use the  index of left ddataframe , use the index of right data frame.
+# Syntax :  Merge the left data frame (staff_df) and the right data frame (student_df) , It will be a union , use the  index of left dataframe , use the index of right data frame.
 print ( ' -------- Outer Join (Union) -------- ')
 print (union_df)
 # rows in final df : rows of left + right df
@@ -124,7 +126,7 @@ print (union_df)
 
 
 ##########################################################
-### 2.) INNER JON
+### 2.) INNER JON  (Intersection)
 ##########################################################
 intersection_df = pd.merge(staff_df, student_df, how = 'inner', left_index=True, right_index=True)
 # Syntax : similar to above, just its an inner join.
@@ -138,7 +140,8 @@ print (intersection_df)
 
 
 ##########################################################
-### 3.) LEFT JOIN
+### 3.) LEFT JOIN  (Get all the elements and details of left-set. But if some of the indexes (since join is on indexes) are present in the right-set also, get the details (cols)
+#   for them also.
 ##########################################################
 left_df = pd.merge(staff_df, student_df, how = 'left', left_index=True, right_index=True)
 # Gets all the staff's cols / details  (i.e name and Role) but if a staff is also a student, get its student cols also ( Here : School )
@@ -159,7 +162,7 @@ print (left_df)
 ##########################################################
 
 
-
+print ( ' -- Will now join on column instead of indexes -- ')
 ##########################################################
 ### Joining on columns
 ##########################################################
@@ -169,13 +172,26 @@ print (left_df)
 staff_df.reset_index(inplace=True)
 student_df.reset_index(inplace=True)
 
+print ( ' --> original (unindexed) staff df : ')
+print ( staff_df)
+
+print ( ' --> original (unindexed) student df : ')
+print (student_df)
 left_df = pd.merge(staff_df, student_df,  how='left' , left_on='Name' , right_on='Name')
-print (' ---- Joining on Name column ----- ')
+print (' ---- Left (staff) Join on Name column ----- ')
 print(left_df)
 ##########################################################
 
 
+##########################################################
+## Conclusion so far :
+##########################################################
+#   The concept of union / intersection / left / right join is applicable on the column / index which on which join is being called.
+    # Ex : If union_join is being called on a common-column of 2 df'. The final df will have that column = union of those 2 cols and then the apt data
+##########################################################
 
+
+print ( ' -- Merging dfs with confliting data -- ' )
 ##########################################################
 ## Conflicting data.
 ##########################################################
@@ -201,7 +217,7 @@ print (' Students data ->')
 print(student_df)
 
 left_df = pd.merge(staff_df, student_df, how='left', left_on='Name', right_on='Name')
-print ( ' ----  Merged df with common cols but different  data ---  ')
+print ( ' ----  left Merged dfs on name with common cols but different  data ---  ')
 print (left_df)
 
 ##########################################################

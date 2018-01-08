@@ -12,7 +12,8 @@ import numpy as np
 
 # indices of df need not be unique, duplicate indexes are allowed.
 # Columns in df always have a label
-# Like index referred to row-labels in pandas-series, in panda-dataframe generally index is used for row-labels only. But since DF also has column labels use of 'column-index' is also common.
+# Like index referred to row-labels in pandas-series, in panda-dataframe generally index is used for row-labels only.
+# But since DF also has column labels use of 'column-index' is also common.
 # <index>  <series_1> <series_2>
 
 # Ex :

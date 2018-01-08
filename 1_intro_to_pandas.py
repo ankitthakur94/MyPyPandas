@@ -166,7 +166,7 @@ print (nums_series)
 
 print ( ' -------------   Renaming the series ---------------- ')
 #################################################################################
-# Renaming the indexes names / name of the entire series
+# Renaming the indexes names / name of the entire series.
 #################################################################################
 
 s = pd.Series([1,2,3])
@@ -182,7 +182,7 @@ print (s)
 
 ### Method -1 passing a lambda
 s.rename(lambda x : x*3, inplace=True)
-print ( ' -- series indexes (row-labels) renamed using lamda -- ' )
+print ( ' -- series indexes (row-labels) renamed using lambda -- ' )
 print (s)
 
 ### Method -2 passing a dict object
@@ -249,8 +249,14 @@ print (grouped)
         # s.rename('scalar_value')
 
     # renaming indexes (row labels)
-        # either using a lambda
+        # either using a lambda.
+            # It will accept the original row label as input and manipulate that to give a new label.
         # or a dict object
+            # <old_label_name : new_label_name
+
+# group_by in series.
+    # s.groupby(s).count()
+        # groups the series by its own numbers.
 #################################################################################
 
 

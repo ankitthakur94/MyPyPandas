@@ -6,7 +6,7 @@ import numpy as np
 
     # 1) Ratio scale :
             # units are equally spaced.
-            # mathematical operations are valid.
+            # mathematical operations (+ - * / ) are valid.
             # Ex : height and weight.
 
     # 2) Interval scale :
@@ -14,7 +14,7 @@ import numpy as np
             # * and / operations are not valid
             # there is no true zero.
                 # i.e a zero value does not indicate absence of value.
-            # Ex : measure of temprature  / direction in compass.
+            # Ex : measure of temperature  / direction in compass.
                 # 0-degree direction does not mean missing value.
 
     # 3) Ordinal Scale :
@@ -22,8 +22,9 @@ import numpy as np
             # values are not evenly spaced.
             # Ex :
                 # Grading A+ / A / A- / B+ / B / B-
+                # Difference b/w A and A- is not the same as B and B- (Don't know why)
 
-    # 4) Nominal Scale :
+    # 4) Nominal Scale  / Categorical Scale :
             # Categorical data.
             # No order
             # No meaning of applying mathematical operations.
@@ -44,12 +45,11 @@ df = pd.DataFrame(['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D']
                   index=['excellent', 'excellent', 'excellent', 'good', 'good', 'good', 'ok', 'ok', 'ok', 'poor', 'poor'])
 df.rename(columns={0:'Grades'}, inplace=True)
 print (df.head())
-print ('data types : ', df.dtypes)
 
 
 print ( ' ---- Converting to category data type ---- ')
 print (df['Grades'].astype('category').head())
-
+## NOte that the order is not mentioned in 'category' data type. (We will see order in ordinal scale)
 
 
 print ( ' ---- Adding ordering also (ie ordinal data type) ---- ')
@@ -67,17 +67,21 @@ print (  df['Grades'] > 'B' )
 
 
 
-
-
 ## Reducing continuous values into categorical data
     # can be used for good visualization.
 
 # pandas can automatically convert this.
 
+print ( '  -- Converting continous values into bins --- ')
 # pd.cut (<df['col] / seires , 4 , lables = ['lable1' , 'label2',  'label3',  'label4' ])
     # Creates 4 bins equally spaced (Ex : 0-10 , 10-20 , 20-30)
-s1 = pd.Series ([2,12,232,45,56,87,34,32,56,34,45,57,97], dtype=int)
-print (pd.cut(s1, 4 , labels= ['l1' , 'l2' , ';3', 'l4']))
+s1 = pd.Series ([2,12,23,45,56,87,34,32,56,34,45,57,97], dtype=int)
+
+print ( ' -- original df --')
+print (s1)
+
+print ( ' -- pd.cut (4) --  ')
+print (pd.cut(s1, 4 , labels= ['l1' , 'l2' , 'l3', 'l4']))
 
 
 

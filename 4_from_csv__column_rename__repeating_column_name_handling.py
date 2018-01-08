@@ -84,6 +84,7 @@ print (medals_df.head())
 # (01 ! stands for Gold medal and comes 3 times) similar is the case with 02 ! and 03 !
 # Pandas does not like repeating column headers and appends .1 , .2 for the consecutive repeating entry
 # SO 3 times 01 ! ( 01 !  01 !  01 ! )  becomes -> ( 01 !  01 !.1  01 !.2)
+# So there can't be repeating column labels  but repeating row labels are allowed.
 #####################################################################################
 
 
